@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  cur8:
+    command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
+    environment:
+      WAIT_HOSTS: postgres:5432, redis:6379
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    networks:
+      - main
+
+  #ct-api:
+  #  depends_on:
+  #    - postgres
+  #  networks:
+  #    - main
+
+  #ct-web:
+  #  networks:
+  #    - main
+
+  postgres:
+    image: postgres:12.1-alpine
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+      - ./pg-init.d:/docker-entrypoint-initdb.d
+    ports:
+      - 54321:5432
+    networks:
+      - main
+
+  redis:
+    image: redis:5.0.7-alpine
+    ports:
+      - 63791:6379
+    networks:
+      - main
+
+volumes:
+  pg-data:
+
+networks:
+  main:

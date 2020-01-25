@@ -1,4 +1,4 @@
-root_dir="${PWD}/$(dirname $0)/.."
+root_dir="$(dirname $0)/../.."
 
 #
 # Run any docker-compose command using the specified environment.

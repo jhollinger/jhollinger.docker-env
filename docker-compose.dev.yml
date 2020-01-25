@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  cur8:
+    build:
+      context: ./apps/cur8
+      dockerfile: Dockerfile.dev
+      args:
+        uid: ${DOCKER_COMPOSE_UID:-1000}
+    volumes:
+      - ./apps/cur8:/srv:delegated
+      - gems:/usr/local/bundle
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: cur8
+      DB_PASS: development
+
+  postgres:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: development
+      CUR8_USER: cur8
+      CUR8_PASS: development
+      CT_USER: cashtracker
+      CT_PASS: development
+
+volumes:
+  gems:
