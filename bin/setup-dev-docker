@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+set -e
+source bin/helpers.sh
+
+#
+# Create all containers
+#
+jh-compose dev up --no-start
+
+#
+# Set up apps (install deps and create dbs)
+#
+jh-run dev cur8 bin/setup-dev
+
+jh-run dev ct-api bin/setup-dev
+jh-run dev ct-web yarn install

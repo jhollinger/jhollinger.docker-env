@@ -1,0 +1,37 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+
+echo "Setting up local dev environment..."
+
+#
+# Clone repos
+#
+echo "Cloning repos..."
+bin/checkout-all master
+if [ $? -ne 0 ]; then exit 1; fi
+
+#
+# Docker compose
+#
+echo "Setting up Docker containers..."
+bin/setup-dev-docker
+if [ $? -ne 0 ]; then exit 1; fi
+
+echo "Great success!"
+cat << NYAN
++      o     +              o   
+    +             o     +       +
+o          +
+    o  +           +        +
++        o     o       +        o
+-_-_-_-_-_-_-_,------,      o 
+_-_-_-_-_-_-_-|   /\_/\  
+-_-_-_-_-_-_-~|__( ^ .^)  +     +  
+_-_-_-_-_-_-_-""  ""      
++      o         o   +       o
+    +         +
+o        o         o      o     +
+    o           +
++      +     o        o      +    
+NYAN

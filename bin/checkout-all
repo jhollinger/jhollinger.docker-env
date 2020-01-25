@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ $# -gt 1 ]; then
+  echo "Usage: bin/checkout-all <branch>"
+  echo "Checks out branch <branch> in all repos."
+  exit 1
+fi
+
+cd $(dirname $0)/../
+mkdir -p apps/ &&
+cd apps
+
+github="git@github.com"
+branch="$1"
+if [ -n "${branch}" ]; then
+  branch_or_master="${branch}"
+else
+  branch_or_master="master"
+fi
+
+repos=(
+  "cur8 jhollinger/cur8.git"
+  "ct-api jhollinger/cashtracker-api.git"
+  "ct-web jhollinger/cashtracker-web.git"
+)
+
+for repo in "${repos[@]}"; do
+  dir=`echo ${repo} | cut -d ' ' -f 1`
+  path=`echo ${repo} | cut -d ' ' -f 2`
+
+  if [ ! -d "${dir}" ]; then
+    git clone "${github}:${path}" "${dir}"
+    cd "${dir}" && git checkout "${branch_or_master}" && cd ..
+  else
+    if [ -n "${branch}" ]; then
+      cd "${dir}"
+      git fetch -pq
+      git checkout "${branch}" && git pull
+      cd ..
+    fi
+  fi
+done
