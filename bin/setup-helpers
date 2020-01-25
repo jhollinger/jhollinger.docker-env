@@ -1,0 +1,26 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+root_dir=`pwd`
+
+function install_helper {
+  helper="${1}"
+  target="${2}"
+  full_path="${root_dir}/bin/helpers/${helper}"
+
+  if [ -f "${target}" ] && ! grep "${full_path}" "${target}" > /dev/null; then
+    printf "\nsource ${full_path}" >> "${target}"
+  fi
+}
+
+if [ ! -f ~/.bashrc ] && [ ! -f ~/.bash_profile ]; then
+  touch ~/.bashrc
+fi
+
+for helper in `ls -1 bin/helpers/`; do
+  install_helper $helper ~/.bashrc
+  install_helper $helper ~/.bash_profile
+  install_helper $helper ~/.zshrc
+done
+
+git config --global alias.up 'pull --rebase'

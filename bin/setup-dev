@@ -5,6 +5,13 @@ cd $(dirname $0)/../
 echo "Setting up local dev environment..."
 
 #
+# Install helpers
+#
+echo "Installing helpers..."
+bin/setup-helpers
+if [ $? -ne 0 ]; then exit 1; fi
+
+#
 # Clone repos
 #
 echo "Cloning repos..."
