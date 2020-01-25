@@ -8,7 +8,6 @@ root_dir="$(dirname $0)/../.."
 function jh-compose {
   env_name=${1}
   shift
-  echo "docker-compose -f ${root_dir}/docker-compose.yml -f ${root_dir}/docker-compose.${env_name}.yml $@"
   docker-compose -f "${root_dir}/docker-compose.yml" -f "${root_dir}/docker-compose.${env_name}.yml" "$@"
 }
 
