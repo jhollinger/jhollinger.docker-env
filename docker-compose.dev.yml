@@ -15,6 +15,35 @@ services:
       DB_USER: cur8
       DB_PASS: development
 
+  ct-api:
+    command: ["wait-then", "mix", "phx.server"]
+    build:
+      context: ./apps/ct-api
+      dockerfile: Dockerfile.dev
+      args:
+        uid: ${DOCKER_COMPOSE_UID:-1000}
+    volumes:
+      - ./apps/ct-api:/srv:delegated
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: cashtracker
+      DB_PASS: development
+
+  ct-web:
+    command: ["yarn", "run", "start", "--port", "3000"]
+    ports:
+      - 4000:3000
+    build:
+      context: ./apps/ct-web
+      dockerfile: Dockerfile.dev
+      args:
+        uid: ${DOCKER_COMPOSE_UID:-1000}
+    volumes:
+      - ./apps/ct-web:/srv:delegated
+      - yarn:/home/cashtracker/.cache/yarn
+      - yarn:/home/cashtracker2/.cache/yarn
+
   postgres:
     environment:
       POSTGRES_USER: postgres
@@ -26,3 +55,4 @@ services:
 
 volumes:
   gems:
+  yarn:

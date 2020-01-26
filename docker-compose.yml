@@ -11,21 +11,23 @@ services:
     networks:
       - main
 
-  #ct-api:
-  #  depends_on:
-  #    - postgres
-  #  networks:
-  #    - main
+  ct-api:
+    environment:
+      WAIT_HOSTS: postgres:5432
+    depends_on:
+      - postgres
+    networks:
+      - main
 
-  #ct-web:
-  #  networks:
-  #    - main
+  ct-web:
+    networks:
+      - main
 
   postgres:
     image: postgres:12.1-alpine
     volumes:
       - pg-data:/var/lib/postgresql/data
-      - ./pg-init.d:/docker-entrypoint-initdb.d
+      - ./postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 54321:5432
     networks:

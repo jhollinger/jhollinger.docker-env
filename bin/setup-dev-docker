@@ -2,7 +2,7 @@
 
 cd $(dirname $0)/../
 set -e
-source bin/helpers.sh
+source bin/helpers/compose.sh
 
 #
 # Create all containers
