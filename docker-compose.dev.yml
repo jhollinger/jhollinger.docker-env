@@ -45,6 +45,8 @@ services:
       - yarn:/home/cashtracker2/.cache/yarn
 
   postgres:
+    ports:
+      - 54321:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: development
@@ -52,6 +54,10 @@ services:
       CUR8_PASS: development
       CT_USER: cashtracker
       CT_PASS: development
+
+  redis:
+    ports:
+      - 63791:6379
 
 volumes:
   gems:
