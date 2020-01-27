@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 services:
   cur8:
     command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]

@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  cur8:
+    image: docker.pkg.github.com/jhollinger/cur8/cur8:0.1
+    restart: always
+
+  ct-api:
+    image: docker.pkg.github.com/jhollinger/cashtracker-api/ct-api:0.1
+    restart: always
+
+  ct-web:
+    image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.1
+    restart: always
+
+  postgres:
+    restart: always
+    env_file:
+      - postgres.env
