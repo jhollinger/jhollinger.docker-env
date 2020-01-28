@@ -5,13 +5,16 @@ services:
     restart: always
 
   ct-api:
+    command: ["foreground"]
     image: docker.pkg.github.com/jhollinger/cashtracker-api/ct-api:0.2
     restart: always
+    env_file:
+      - ct-api.env
 
   ct-web:
     ports:
       - 4000:80
-    image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.1
+    image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.2
     restart: always
 
   postgres:
