@@ -6,6 +6,12 @@
 * docker
 * docker-compose
 
+Log into Github's docker hub with:
+
+    docker login docker.pkg.github.com --username jhollinger
+
+The password should be a GH personal access token with read:packages, repo, and (optionally) write:packages.
+
 ## Dev Environment
 
 This will set up the entire docker compose stack and install several shell functions and aliases.

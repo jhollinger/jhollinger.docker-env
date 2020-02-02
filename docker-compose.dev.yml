@@ -10,6 +10,7 @@ services:
       - ./apps/cur8:/srv:delegated
       - gems:/usr/local/bundle
     environment:
+      REDIS_URL: redis://redis:6379/0
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: cur8

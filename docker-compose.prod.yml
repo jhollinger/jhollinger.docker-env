@@ -3,6 +3,8 @@ services:
   cur8:
     image: docker.pkg.github.com/jhollinger/cur8/cur8:0.1
     restart: always
+    env_file:
+      - cur8.env
 
   ct-api:
     command: ["foreground"]

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+source ./bin/helpers/compose.sh
+
+cmd="$1"
+shift
+
+$cmd "$@"
