@@ -1,0 +1,48 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+source ./bin/helpers/compose.sh
+
+docker_env=$1
+db_name=$2
+backup_dir=$3
+gpg_uid="$4"
+
+dump_filename="${db_name}_$(date +'%Y-%m-%d_%H-%M-%S').sql"
+outfile="${backup_dir}/${dump_filename}"
+tmp_outfile="${backup_dir}/.${dump_filename}.tmp"
+
+if [ $# -lt 3 ] || [ $# -gt 4 ]; then
+  echo "Usage: backup-db dev|prod db_name backup_dir [gpg_uuid]"
+  exit 1
+fi
+if [ ! -d $backup_dir ]; then
+  echo "'$backup_dir' does not exist or is not a directory"
+  exit 1
+fi
+
+jh-exec $docker_env -T postgres pg_dump --username postgres $db_name > $tmp_outfile
+status=$?
+if [ $status -ne 0 ]; then
+  rm -f $tmp_outfile
+  echo "Backup failed; aborting"
+  exit $status
+fi
+
+if [ "$gpg_uid" != "" ]; then
+  cat $tmp_outfile | bzip2 | gpg -r "$gpg_uid" --yes --encrypt -o "${outfile}.bz2.gpg"
+else
+  cat $tmp_outfile | bzip2 > "${outfile}.bz2"
+fi
+
+status=$?
+rm -f $tmp_outfile
+if [ $status -ne 0 ]; then
+  echo "Backup compression failed; aborting"
+  exit $status
+fi
+
+# Clean up backups older than 14 days *if* there where at least 7 backups during the last 14 days
+if [ `find . -type f -name \*.sql.bz2 -mtime -14 | wc -l` -ge 7 ]; then
+  find . -type f -name \*.sql.bz2 -mtime +14 -exec rm {} +
+fi
