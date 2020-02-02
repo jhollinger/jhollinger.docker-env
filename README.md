@@ -34,22 +34,13 @@ On your first run, you will need to re-source .bashrc/.bash_profile/.zshrc.
 
 ## Helpers
 
-**jh-compose**
-
-Runs `docker-compose` config with the specified config file.
-
+    # runs `docker-compose` config with the specified config file.
     jh-compose dev ps
 
-**jh-run**
-
-Runs `docker-compose run --rm` with the specified config file and container.
-
+    # runs `docker-compose run --rm` with the specified config file and container.
     jh-run dev cashtracker b rake db:migrate
 
-**jh-exec**
-
-Runs `docker-compose exec` with the specified config file and container.
-
+    # runs `docker-compose exec` with the specified config file and container.
     jh-exec dev postgres psql --username postgres -l
 
 ## Backups
