@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd $(dirname $0)/../
+
+if [ $# -lt 1 ]; then
+  echo "Usage: bin/psql dev|prod [options]"
+  exit 1
+fi
+
+env="$1"
+shift
+
+bin/env jh-exec "$env" postgres psql --username postgres "$@"
