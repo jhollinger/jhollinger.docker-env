@@ -19,6 +19,14 @@ services:
     image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.2
     restart: always
 
+  music-camp:
+    image: docker.pkg.github.com/jhollinger/music-camp/music-camp:0.1
+    restart: always
+    env_file:
+      - music-camp.env
+    volumes:
+      ./mounts/music-camp/db:/srv/db
+
   postgres:
     restart: always
     env_file:

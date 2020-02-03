@@ -45,6 +45,18 @@ services:
       - yarn:/home/cashtracker/.cache/yarn
       - yarn:/home/cashtracker2/.cache/yarn
 
+  music-camp:
+    build:
+      context: ./apps/music-camp
+      dockerfile: Dockerfile.dev
+      args:
+        uid: ${DOCKER_COMPOSE_UID:-1000}
+    volumes:
+      - ./apps/music-camp:/srv:delegated
+      - gems:/usr/local/bundle
+    environment:
+      DB_PATH: TODO
+
   postgres:
     ports:
       - 54321:5432
