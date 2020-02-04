@@ -16,3 +16,5 @@ jh-run dev cur8 bin/setup-dev
 
 jh-run dev ct-api bin/setup-dev
 jh-run dev ct-web yarn install
+
+jh-run dev music-camp bin/setup-dev

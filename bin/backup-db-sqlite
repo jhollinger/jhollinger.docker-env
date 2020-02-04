@@ -1,0 +1,28 @@
+#!/bin/bash
+
+db_path=$1
+backup_dir=$2
+gpg_uid="$3"
+dumpfile="$(date +'%Y-%m-%d_%H-%M-%S').sqlite3"
+
+if [ $# -lt 2 ] || [ $# -gt 3 ]; then
+  echo "Usage: backup-db-sqlite db_path backup_dir [gpg_uuid]"
+  exit 1
+fi
+if [ ! -d $backup_dir ]; then
+  echo "'$backup_dir' does not exist, or is not a directory"
+  exit 1
+fi
+
+# Make new backup
+cp $db_path $backup_dir/$dumpfile
+
+if [ "$gpg_uid" != "" ]; then
+  cd $backup_dir
+  gpg -r "$gpg_uid" --yes --encrypt $dumpfile && rm $dumpfile
+fi
+
+# Clean up backups older than 14 days *if* there where at least 7 backups during the last 14 days
+if [ `find . -type f -name \*.sqlite3 -mtime -14 | wc -l` -ge 7 ]; then
+  find $backup_dir -type f -name \*.sqlite3 -mtime +14 -exec rm {} +
+fi

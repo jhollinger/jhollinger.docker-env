@@ -22,6 +22,7 @@ repos=(
   "cur8 jhollinger/cur8.git"
   "ct-api jhollinger/cashtracker-api.git"
   "ct-web jhollinger/cashtracker-web.git"
+  "music-camp jhollinger/music-camp.git"
 )
 
 for repo in "${repos[@]}"; do

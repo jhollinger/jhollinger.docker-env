@@ -54,8 +54,6 @@ services:
     volumes:
       - ./apps/music-camp:/srv:delegated
       - gems:/usr/local/bundle
-    environment:
-      DB_PATH: TODO
 
   postgres:
     ports:

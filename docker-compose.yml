@@ -27,8 +27,6 @@ services:
 
   music-camp:
     command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
-    environment:
-      WAIT_HOSTS: postgres:5432, redis:6379
     ports:
       - 5000:3000
     networks:
