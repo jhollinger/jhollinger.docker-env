@@ -25,6 +25,8 @@ services:
     environment:
       RACK_ENV: production
     volumes:
+      - ./mounts/music-camp/media:/srv/public/media
+      - ./mounts/music-camp/photos:/srv/public/photos
       - ./mounts/music-camp/db.sqlite3:/srv/db/db.sqlite3
       - ./env/music-camp.yml:/srv/config/music-camp.yml
       - ./env/music-camp.database.yml:/srv/config/database.yml
