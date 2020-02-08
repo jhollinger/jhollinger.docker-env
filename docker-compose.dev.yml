@@ -1,6 +1,7 @@
 version: '3.3'
 services:
   cur8:
+    command: ["wait-then", "bin/exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
     build:
       context: ./apps/cur8
       dockerfile: Dockerfile.dev
@@ -15,6 +16,10 @@ services:
       DB_PORT: 5432
       DB_USER: cur8
       DB_PASS: development
+      CUR8: ${CUR8:-run}
+      DEBUG_PORT: 2000
+    ports:
+      - 2000:2000
 
   ct-api:
     command: ["wait-then", "mix", "phx.server"]
