@@ -38,6 +38,12 @@ On your first run, you will need to re-source .bashrc/.bash_profile/.zshrc.
 
     jh-compose prod up -d
 
+### Update
+
+    git pull
+    SERVICE=cur8
+    jh-compose prod stop $SERVICE && jh-compose prod up -d $SERVICE
+
 ## Helpers
 
     # runs `docker-compose` config with the specified config file.
