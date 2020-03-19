@@ -28,7 +28,7 @@ services:
       - ./mounts/music-camp/downloads:/srv/downloads
       - ./mounts/music-camp/media:/srv/public/media
       - ./mounts/music-camp/photos:/srv/public/photos
-      - ./mounts/music-camp/db.sqlite3:/srv/db/db.sqlite3
+      - ./mounts/music-camp/db.sqlite3:/home/app/db.sqlite3
       - ./env/music-camp.yml:/srv/config/music-camp.yml
       - ./env/music-camp.database.yml:/srv/config/database.yml
 
