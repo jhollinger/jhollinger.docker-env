@@ -1,0 +1,17 @@
+FROM elixir:1.7.3
+WORKDIR /srv
+ARG uid=1000
+
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.6.0/wait /usr/local/bin/wait
+RUN chmod +x /usr/local/bin/wait && \
+  echo '#!/bin/bash\nwait; exec "$@"' > /usr/local/bin/wait-then && chmod 755 /usr/local/bin/wait-then
+
+RUN apt-get update && \
+  apt-get install -y \
+    postgresql-client && \
+  useradd -m app && \
+  useradd -m app2
+
+USER $uid
+RUN mix local.hex --force && \
+  mix local.rebar --force

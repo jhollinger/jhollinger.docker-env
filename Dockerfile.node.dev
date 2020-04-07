@@ -1,0 +1,10 @@
+FROM node:10.16-stretch
+ARG uid=1000
+WORKDIR /srv
+
+RUN useradd -m app && \
+  useradd -m app2
+
+USER $uid
+
+RUN mkdir -p ~/.cache/yarn

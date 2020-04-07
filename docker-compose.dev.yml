@@ -25,7 +25,7 @@ services:
     command: ["wait-then", "mix", "phx.server"]
     build:
       context: ./apps/ct-api
-      dockerfile: Dockerfile.dev
+      dockerfile: ../../Dockerfile.elixir.dev
       args:
         uid: ${DOCKER_COMPOSE_UID:-1000}
     volumes:
@@ -42,7 +42,7 @@ services:
       - 4000:3000
     build:
       context: ./apps/ct-web
-      dockerfile: Dockerfile.dev
+      dockerfile: ../../Dockerfile.node.dev
       args:
         uid: ${DOCKER_COMPOSE_UID:-1000}
     volumes:
@@ -53,7 +53,7 @@ services:
   music-camp:
     build:
       context: ./apps/music-camp
-      dockerfile: Dockerfile.dev
+      dockerfile: ../../Dockerfile.ruby.dev
       args:
         uid: ${DOCKER_COMPOSE_UID:-1000}
     volumes:
