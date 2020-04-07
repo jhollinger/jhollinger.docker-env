@@ -4,7 +4,7 @@ services:
     command: ["wait-then", "bin/exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
     build:
       context: ./apps/cur8
-      dockerfile: Dockerfile.dev
+      dockerfile: ../../Dockerfile.ruby.dev
       args:
         uid: ${DOCKER_COMPOSE_UID:-1000}
     volumes:
