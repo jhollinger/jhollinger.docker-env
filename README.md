@@ -43,6 +43,17 @@ On your first run, you will need to re-source .bashrc/.bash_profile/.zshrc.
     git pull
     SERVICE=cur8
     jh-compose prod stop $SERVICE && jh-compose prod up -d $SERVICE
+    
+## Uninstall
+
+    # Drop containers only (very fast to bin/setup)
+    jh-compose dev|prod down
+
+    # Drop containers and images (pretty fast to bin/setup)
+    jh-compose dev|prod down --rmi=all
+
+    # Burn it all down! (very slow to bin/setup)
+    jh-compose dev|prod down --rmi=all --volumes
 
 ## Helpers
 
