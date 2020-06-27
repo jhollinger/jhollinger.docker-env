@@ -1,9 +1,8 @@
-FROM node:10.16-stretch
+FROM node:10.21.0-alpine3.11
 ARG uid=1000
 WORKDIR /srv
 
-RUN useradd -m app && \
-  useradd -m app2
+RUN apk --no-cache add python2 build-base
 
 USER $uid
 
