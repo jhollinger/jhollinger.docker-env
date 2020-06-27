@@ -16,7 +16,7 @@ services:
   ct-web:
     ports:
       - 4000:80
-    image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.2
+    image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.3
     restart: always
 
   music-camp:

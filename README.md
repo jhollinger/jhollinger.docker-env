@@ -42,7 +42,9 @@ On your first run, you will need to re-source .bashrc/.bash_profile/.zshrc.
 
     git pull
     SERVICE=cur8
-    jh-compose prod stop $SERVICE && jh-compose prod up -d $SERVICE
+    jh-compose prod pull $SERVICE && \
+      jh-compose prod stop $SERVICE && \
+      jh-compose prod up -d $SERVICE
     
 ## Uninstall
 
