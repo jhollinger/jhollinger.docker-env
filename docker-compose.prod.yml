@@ -20,7 +20,7 @@ services:
     restart: always
 
   music-camp:
-    image: docker.pkg.github.com/jhollinger/music-camp/music-camp:0.2
+    image: docker.pkg.github.com/jhollinger/music-camp/music-camp:0.3
     restart: always
     environment:
       RACK_ENV: production
