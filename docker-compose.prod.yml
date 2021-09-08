@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   cur8:
-    image: docker.pkg.github.com/jhollinger/cur8/cur8:0.9
+    image: docker.pkg.github.com/jhollinger/cur8/cur8:0.10
     restart: always
     env_file:
       - ./env/cur8
