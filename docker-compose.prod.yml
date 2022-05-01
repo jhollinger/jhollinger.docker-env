@@ -1,11 +1,5 @@
 version: '3.3'
 services:
-  cur8:
-    image: docker.pkg.github.com/jhollinger/cur8/cur8:0.11
-    restart: always
-    env_file:
-      - ./env/cur8
-
   ct-api:
     command: ["foreground"]
     image: docker.pkg.github.com/jhollinger/cashtracker-api/ct-api:0.2
@@ -19,18 +13,24 @@ services:
     image: docker.pkg.github.com/jhollinger/cashtracker-web/ct-web:0.3
     restart: always
 
-  music-camp:
-    image: docker.pkg.github.com/jhollinger/music-camp/music-camp:0.3
-    restart: always
-    environment:
-      RACK_ENV: production
-    volumes:
-      - ./mounts/music-camp/downloads:/srv/downloads
-      - ./mounts/music-camp/media:/srv/public/media
-      - ./mounts/music-camp/photos:/srv/public/photos
-      - ./mounts/music-camp/db.sqlite3:/home/app/db.sqlite3
-      - ./env/music-camp.yml:/srv/config/music-camp.yml
-      - ./env/music-camp.database.yml:/srv/config/database.yml
+  #cur8:
+  #  image: docker.pkg.github.com/jhollinger/cur8/cur8:0.11
+  #  restart: always
+  #  env_file:
+  #    - ./env/cur8
+
+  #music-camp:
+  #  image: docker.pkg.github.com/jhollinger/music-camp/music-camp:0.3
+  #  restart: always
+  #  environment:
+  #    RACK_ENV: production
+  #  volumes:
+  #    - ./mounts/music-camp/downloads:/srv/downloads
+  #    - ./mounts/music-camp/media:/srv/public/media
+  #    - ./mounts/music-camp/photos:/srv/public/photos
+  #    - ./mounts/music-camp/db.sqlite3:/home/app/db.sqlite3
+  #    - ./env/music-camp.yml:/srv/config/music-camp.yml
+  #    - ./env/music-camp.database.yml:/srv/config/database.yml
 
   postgres:
     restart: always

@@ -1,17 +1,5 @@
 version: '3.3'
 services:
-  cur8:
-    command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
-    environment:
-      WAIT_HOSTS: postgres:5432, redis:6379
-    ports:
-      - 3000:3000
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - main
-
   ct-api:
     environment:
       WAIT_HOSTS: postgres:5432
@@ -25,12 +13,24 @@ services:
     networks:
       - main
 
-  music-camp:
-    command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
-    ports:
-      - 5000:3000
-    networks:
-      - main
+  #cur8:
+  #  command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
+  #  environment:
+  #    WAIT_HOSTS: postgres:5432, redis:6379
+  #  ports:
+  #    - 3000:3000
+  #  depends_on:
+  #    - postgres
+  #    - redis
+  #  networks:
+  #    - main
+
+  #music-camp:
+  #  command: ["wait-then", "bundle", "exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
+  #  ports:
+  #    - 5000:3000
+  #  networks:
+  #    - main
 
   postgres:
     image: postgres:12.1-alpine

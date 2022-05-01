@@ -1,26 +1,5 @@
 version: '3.3'
 services:
-  cur8:
-    command: ["wait-then", "bin/exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
-    build:
-      context: ./apps/cur8
-      dockerfile: ../../Dockerfile.ruby.dev
-      args:
-        uid: ${DOCKER_COMPOSE_UID:-1000}
-    volumes:
-      - ./apps/cur8:/srv:delegated
-      - gems:/usr/local/bundle
-    environment:
-      REDIS_URL: redis://redis:6379/0
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_USER: cur8
-      DB_PASS: development
-      CUR8: ${CUR8:-run}
-      DEBUG_PORT: 2000
-    ports:
-      - 2000:2000
-
   ct-api:
     command: ["wait-then", "mix", "phx.server"]
     build:
@@ -50,15 +29,36 @@ services:
       - yarn:/home/cashtracker/.cache/yarn
       - yarn:/home/cashtracker2/.cache/yarn
 
-  music-camp:
-    build:
-      context: ./apps/music-camp
-      dockerfile: ../../Dockerfile.ruby.dev
-      args:
-        uid: ${DOCKER_COMPOSE_UID:-1000}
-    volumes:
-      - ./apps/music-camp:/srv:delegated
-      - gems:/usr/local/bundle
+  #cur8:
+  #  command: ["wait-then", "bin/exec", "puma", "-p", "3000", "-b", "tcp://0.0.0.0", "--pidfile", "/tmp/puma.pid"]
+  #  build:
+  #    context: ./apps/cur8
+  #    dockerfile: ../../Dockerfile.ruby.dev
+  #    args:
+  #      uid: ${DOCKER_COMPOSE_UID:-1000}
+  #  volumes:
+  #    - ./apps/cur8:/srv:delegated
+  #    - gems:/usr/local/bundle
+  #  environment:
+  #    REDIS_URL: redis://redis:6379/0
+  #    DB_HOST: postgres
+  #    DB_PORT: 5432
+  #    DB_USER: cur8
+  #    DB_PASS: development
+  #    CUR8: ${CUR8:-run}
+  #    DEBUG_PORT: 2000
+  #  ports:
+  #    - 2000:2000
+
+  #music-camp:
+  #  build:
+  #    context: ./apps/music-camp
+  #    dockerfile: ../../Dockerfile.ruby.dev
+  #    args:
+  #      uid: ${DOCKER_COMPOSE_UID:-1000}
+  #  volumes:
+  #    - ./apps/music-camp:/srv:delegated
+  #    - gems:/usr/local/bundle
 
   postgres:
     ports:
