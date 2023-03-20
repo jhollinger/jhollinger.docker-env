@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+  echo "Usage: backup-server host:/path/to/src/ /path/to/dest [rsync options]"
+  echo "Env vars:"
+  echo "  MAX=N Maximum # of backup files to keep in dest dir"
+  exit 1
+fi
+
+src="$1"
+dest="$2"
+shift 2
+
+if ! rsync --recursive --times --chmod=D750,F440 --quiet "$@" "$src" "$dest"; then
+  echo "Backup failed"
+  exit 1
+fi
+
+# Delete all but the most recent N files
+if [[ -n $MAX ]]; then
+  offset=$((MAX+1))
+  find "$dest" -type f -printf "%T+ %p\n" |
+    sort -r |
+    awk '{ print $2 }' |
+    tail -n +$offset |
+    xargs --no-run-if-empty rm -f
+fi
