@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
+
+source $(dirname $0)/lib.sh
+
 if [ $# -lt 2 ]; then
   echo "Usage: backup-server host:/path/to/src/ /path/to/dest [rsync options]"
   echo "Env vars:"
@@ -18,10 +22,5 @@ fi
 
 # Delete all but the most recent N files
 if [[ -n $MAX ]]; then
-  offset=$((MAX+1))
-  find "$dest" -type f -printf "%T+ %p\n" |
-    sort -r |
-    awk '{ print $2 }' |
-    tail -n +$offset |
-    xargs --no-run-if-empty rm -f
+  keep_most_recent "$dest" $MAX
 fi

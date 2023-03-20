@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
+
+source $(dirname $0)/lib.sh
+
 db_path=$1
 backup_dir=$2
 gpg_uid="$3"
@@ -22,7 +26,5 @@ if [ "$gpg_uid" != "" ]; then
   gpg -r "$gpg_uid" --yes --encrypt $dumpfile && rm $dumpfile
 fi
 
-# Clean up backups older than 14 days *if* there where at least 7 backups during the last 14 days
-if [ `find . -type f -name \*.sqlite3 -mtime -14 | wc -l` -ge 7 ]; then
-  find $backup_dir -type f -name \*.sqlite3 -mtime +14 -exec rm {} +
-fi
+# Delete all but the most recent 100 backups
+keep_most_recent $backup_dir 100

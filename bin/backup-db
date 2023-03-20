@@ -1,7 +1,10 @@
 #!/bin/bash
 
+set -euo pipefail
+
 cd $(dirname $0)/../
 source ./bin/helpers/compose.sh
+source ./bin/lib.sh
 
 docker_env=$1
 db_name=$2
@@ -42,7 +45,5 @@ if [ $status -ne 0 ]; then
   exit $status
 fi
 
-# Clean up backups older than 14 days *if* there where at least 7 backups during the last 14 days
-if [ `find . -type f -name \*.sql.bz2 -mtime -14 | wc -l` -ge 7 ]; then
-  find . -type f -name \*.sql.bz2 -mtime +14 -exec rm {} +
-fi
+# Delete all but the most recent 100 backups
+keep_most_recent $backup_dir 100
