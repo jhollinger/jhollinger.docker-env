@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+source $(dirname $0)/lib.sh
+
+#
+# NOTE must be run as root! Example use in /etc/cron.d/backups:
+#
+# # m h  dom mon dow   user   command
+# 00 00 * * 0 root /home/jhollinger/jhollinger.docker-env/bin/backup-letsencrypt
+#
+
+backup_dir=/srv/backups/letsencrypt
+user=jhollinger
+gpg_key='jordan.hollinger@gmail.com'
+
+if [[ ! -d $backup_dir ]]; then
+  mkdir -p $backup_dir
+  chown ${user}:${user} $backup_dir
+fi
+
+cd /etc
+tarfile="letsencrypt_$(date +'%Y-%m-%d_%H-%M-%S').tar.gz"
+tar -cz letsencrypt | su - $user -c "gpg -r $gpg_key --yes --encrypt -o ${backup_dir}/${tarfile}.gpg"
+
+# Delete all but the most recent 100 backups
+keep_most_recent $backup_dir 100
