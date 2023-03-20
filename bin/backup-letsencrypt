@@ -23,5 +23,5 @@ cd /etc
 tarfile="letsencrypt_$(date +'%Y-%m-%d_%H-%M-%S').tar.gz"
 tar -cz letsencrypt | su - $user -c "gpg -r $gpg_key --yes --encrypt -o ${backup_dir}/${tarfile}.gpg"
 
-# Delete all but the most recent 100 backups
-keep_most_recent $backup_dir 100
+# Delete all but the most recent 10 backups
+keep_most_recent $backup_dir 10
