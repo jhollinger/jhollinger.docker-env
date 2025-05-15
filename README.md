@@ -4,7 +4,6 @@
 
 * git
 * docker
-* docker-compose
 
 Log into Github's docker hub with:
 

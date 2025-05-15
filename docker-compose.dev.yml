@@ -1,4 +1,3 @@
-version: '3.3'
 services:
   ct-api:
     command: ["wait-then", "mix", "phx.server"]
@@ -71,9 +70,9 @@ services:
       CT_USER: cashtracker
       CT_PASS: development
 
-  redis:
-    ports:
-      - 63791:6379
+  #redis:
+  #  ports:
+  #    - 63791:6379
 
 volumes:
   gems:

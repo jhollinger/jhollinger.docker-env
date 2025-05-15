@@ -1,4 +1,3 @@
-version: '3.3'
 services:
   ct-api:
     environment:
@@ -33,17 +32,19 @@ services:
   #    - main
 
   postgres:
-    image: postgres:12.1-alpine
+    image: postgres:16.1-alpine
+    ports:
+      - 6432:5432
     volumes:
       - pg-data:/var/lib/postgresql/data
       - ./mounts/postgres/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - main
 
-  redis:
-    image: redis:5.0.7-alpine
-    networks:
-      - main
+  #redis:
+  #  image: redis:5.0.7-alpine
+  #  networks:
+  #    - main
 
 volumes:
   pg-data:

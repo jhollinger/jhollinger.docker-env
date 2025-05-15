@@ -1,4 +1,4 @@
-FROM node:10.21.0-alpine3.11
+FROM node:24.0.1-alpine3.20
 ARG uid=1000
 WORKDIR /srv
 

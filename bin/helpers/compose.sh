@@ -6,14 +6,14 @@ else
 fi
 
 #
-# Run any docker-compose command using the specified environment.
+# Run any docker compose command using the specified environment.
 #
 # Example: jh-compose dev up
 #
 function jh-compose {
   env_name=${1}
   shift
-  docker-compose -f "${jh_docker_root}/docker-compose.yml" -f "${jh_docker_root}/docker-compose.${env_name}.yml" "$@"
+  docker compose -f "${jh_docker_root}/docker-compose.yml" -f "${jh_docker_root}/docker-compose.${env_name}.yml" "$@"
 }
 
 #
