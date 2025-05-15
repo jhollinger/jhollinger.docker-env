@@ -9,7 +9,7 @@ source ./bin/lib.sh
 docker_env=$1
 db_name=$2
 backup_dir=$3
-gpg_uid="$4"
+[[ $# -gt 3 ]] && gpg_uid="$4" || gpg_uid=""
 
 dump_filename="${db_name}_$(date +'%Y-%m-%d_%H-%M-%S').sql"
 outfile="${backup_dir}/${dump_filename}"

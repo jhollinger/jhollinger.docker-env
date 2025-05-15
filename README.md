@@ -71,10 +71,10 @@ On your first run, you will need to re-source .bashrc/.bash_profile/.zshrc.
 
 This will dump the specified database into the specified directory, as a compressed sql file.
 
-    bin/backup-db dev cashtracker_dev ~/backups/
+    bin/backup-db dev cashtracker ~/backups/
 
 ### Encrypted backups
 
 Simply add your gpg public key name (usually an email) to the backup command.
 
-    bin/backup-db dev cashtracker_dev ~/backups/ user@example.com
+    bin/backup-db dev cashtracker ~/backups/ user@example.com
